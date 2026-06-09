@@ -1,24 +1,31 @@
+# Dependencies
+node_modules/
+
+# Build outputs - 这些是大文件，不需要提交
+dist/
+dist-electron/
+build/
+out/
+
 # Logs
-logs
 *.log
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+# OS files
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+
+# Large binaries
+*.asar
+*.exe
+*.dmg
+*.AppImage
+*.deb
+*.rpm
+
+# Node binary (你截图里那个87MB的)
+node-v18.17.0-linux-x64/
