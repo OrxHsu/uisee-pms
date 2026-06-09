@@ -1,0 +1,118 @@
+{
+  "name": "upms",
+  "productName": "UPMS",
+  "description": "UPMS - 项目管理系统",
+  "private": true,
+  "version": "0.0.13",
+  "type": "module",
+  "main": "electron/main.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "check": "tsc -b --noEmit",
+    "electron": "electron .",
+    "electron:dev": "concurrently \"vite\" \"wait-on http://localhost:5173 && electron .\"",
+    "electron:build": "npm run build && electron-builder",
+    "electron:build:linux": "npm run build && electron-builder --linux"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.40.0",
+    "jspdf": "^4.2.1",
+    "jspdf-autotable": "^5.0.8",
+    "lucide-react": "^0.511.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^7.3.0",
+    "tailwind-merge": "^3.0.2",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.25.0",
+    "@types/node": "^22.15.30",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.4.1",
+    "autoprefixer": "^10.4.21",
+    "babel-plugin-react-dev-locator": "^1.0.0",
+    "concurrently": "^8.2.2",
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.1",
+    "eslint": "^9.25.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^16.0.0",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^3.4.17",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.30.1",
+    "vite": "^6.3.5",
+    "vite-tsconfig-paths": "^5.1.4",
+    "wait-on": "^7.2.0"
+  },
+  "author": "GuoHui Xu",
+  "homepage": "https://github.com/uisee/upms",
+  "build": {
+    "appId": "com.uisee.upms",
+    "productName": "UPMS",
+    "copyright": "Copyright © 2026 GuoHui Xu",
+    "directories": {
+      "output": "dist-electron",
+      "buildResources": "build"
+    },
+    "files": [
+      "electron/**/*",
+      "dist/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "public/",
+        "to": "public/",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "linux": {
+      "artifactName": "UPMS_Demo_V${version}_amd64.deb",
+      "target": [
+        {
+          "target": "deb",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "category": "Office",
+      "icon": "build/icons",
+      "maintainer": "GuoHui Xu",
+      "vendor": "UISEE",
+      "synopsis": "UPMS - 自动驾驶项目管理系统",
+      "description": "UPMS (UISEE Project Management System) 是一款面向自动驾驶车辆部署的项目管理系统，支持项目全生命周期管理。",
+      "desktop": {
+        "Name": "UPMS",
+        "Comment": "自动驾驶项目管理系统",
+        "Categories": "Office;ProjectManagement;",
+        "StartupNotify": "true",
+        "StartupWMClass": "UPMS"
+      }
+    },
+    "deb": {
+      "depends": [
+        "libgtk-3-0",
+        "libnotify4",
+        "libnss3",
+        "libxss1",
+        "libxtst6",
+        "xdg-utils",
+        "libatspi2.0-0",
+        "libuuid1",
+        "libsecret-1-0",
+        "libappindicator3-1"
+      ],
+      "priority": "optional"
+    }
+  }
+}

@@ -1,0 +1,333 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: "Montserrat", "Noto Sans SC", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  --font-display: "Montserrat", "Noto Sans SC", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* ===== Liquid Glass — 浅色模式 ===== */
+  --bg-base: #EEF0F5;
+  --bg-surface: rgba(255, 255, 255, 0.55);
+  --bg-elevated: rgba(255, 255, 255, 0.70);
+  --bg-sidebar: rgba(255, 255, 255, 0.45);
+
+  /* 液态玻璃核心参数 */
+  --glass-blur: 18px;
+  --glass-saturate: 160%;
+  --glass-bg: rgba(255, 255, 255, 0.35);
+  --glass-border: rgba(255, 255, 255, 0.55);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+  --glass-inner-glow: inset 0 1px 1px rgba(255, 255, 255, 0.80), inset 0 -0.5px 0.5px rgba(255, 255, 255, 0.40);
+  --glass-specular: linear-gradient(135deg, rgba(255,255,255,0.50) 0%, rgba(255,255,255,0.10) 40%, transparent 60%);
+
+  /* 边框 */
+  --border-color: rgba(0, 0, 0, 0.06);
+  --border-strong: rgba(0, 0, 0, 0.10);
+
+  /* 文字 */
+  --text-primary: #1D1D1F;
+  --text-secondary: #4A4A4F;
+  --text-tertiary: #7A7A80;
+
+  /* 文字层级系统 */
+  --text-h1: 1.5rem;     /* 24px — 页面标题 */
+  --text-h2: 1.125rem;   /* 18px — 模态框/区域标题 */
+  --text-h3: 1rem;       /* 16px — 子区域标题 */
+  --text-body: 0.875rem; /* 14px — 正文 */
+  --text-caption: 0.75rem; /* 12px — 标签/辅助文字 */
+  --text-badge: 0.625rem;  /* 10px — 标记/徽章 */
+
+  /* 强调色 */
+  --accent: #C199E0;
+  --accent-hover: #A87BC7;
+  --accent-light: rgba(193, 153, 224, 0.12);
+}
+
+.dark {
+  /* ===== Liquid Glass — 深色模式 ===== */
+  --bg-base: #0A0A12;
+  --bg-surface: rgba(30, 30, 45, 0.55);
+  --bg-elevated: rgba(40, 40, 60, 0.65);
+  --bg-sidebar: rgba(20, 20, 35, 0.60);
+
+  /* 液态玻璃核心参数 — 深色 */
+  --glass-blur: 22px;
+  --glass-saturate: 150%;
+  --glass-bg: rgba(30, 30, 50, 0.40);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.50), 0 1px 3px rgba(0, 0, 0, 0.30);
+  --glass-inner-glow: inset 0 1px 1px rgba(255, 255, 255, 0.10), inset 0 -0.5px 0.5px rgba(255, 255, 255, 0.05);
+  --glass-specular: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.03) 40%, transparent 60%);
+
+  /* 边框 */
+  --border-color: rgba(255, 255, 255, 0.06);
+  --border-strong: rgba(255, 255, 255, 0.10);
+
+  /* 文字 */
+  --text-primary: #F5F5F7;
+  --text-secondary: #B0B0B5;
+  --text-tertiary: #6E6E73;
+
+  /* 文字层级系统 */
+  --text-h1: 1.5rem;     /* 24px — 页面标题 */
+  --text-h2: 1.125rem;   /* 18px — 模态框/区域标题 */
+  --text-h3: 1rem;       /* 16px — 子区域标题 */
+  --text-body: 0.875rem; /* 14px — 正文 */
+  --text-caption: 0.75rem; /* 12px — 标签/辅助文字 */
+  --text-badge: 0.625rem;  /* 10px — 标记/徽章 */
+
+  /* 强调色 */
+  --accent: #C199E0;
+  --accent-hover: #D4ACED;
+  --accent-light: rgba(193, 153, 224, 0.15);
+}
+
+/* 桌面应用专用优化 */
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  user-select: none;
+  -webkit-app-region: no-drag;
+  background: transparent;
+  color: var(--text-primary);
+  transition: color 0.4s ease;
+}
+
+input, textarea, [contenteditable] {
+  user-select: text;
+}
+
+.drag-region {
+  -webkit-app-region: drag;
+}
+
+.no-drag {
+  -webkit-app-region: no-drag;
+}
+
+/* ===== Liquid Glass 工具类 ===== */
+@layer components {
+  /* 标准液态玻璃 — 用于卡片、面板（backdrop-filter 由 glassBlur 引擎替代） */
+  .liquid-glass {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    box-shadow: var(--glass-shadow), var(--glass-inner-glow);
+    position: relative;
+  }
+
+  /* 液态玻璃 — 带折射伪元素 */
+  .liquid-glass::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--glass-specular);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* 强液态玻璃 — 用于模态框、关键浮层 */
+  .liquid-glass-strong {
+    background: var(--bg-elevated);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    box-shadow: var(--glass-shadow), var(--glass-inner-glow);
+    position: relative;
+  }
+
+  .liquid-glass-strong::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--glass-specular);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* 轻液态玻璃 — 用于 Sidebar、背景层 */
+  .liquid-glass-subtle {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: var(--glass-shadow);
+    position: relative;
+  }
+
+  .liquid-glass-subtle::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--glass-specular);
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.5;
+  }
+
+  /* 液态玻璃按钮 — 无 backdrop-filter，纯色半透明模拟（小元素 blur 不可见） */
+  .liquid-glass-btn {
+    background: var(--bg-elevated);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    box-shadow: var(--glass-inner-glow), 0 2px 8px rgba(0, 0, 0, 0.04);
+    position: relative;
+    transition: all 0.2s ease;
+    will-change: transform;
+  }
+
+  .liquid-glass-btn:hover {
+    background: var(--bg-surface);
+    box-shadow: var(--glass-inner-glow), 0 4px 16px rgba(0, 0, 0, 0.08);
+  }
+
+  .liquid-glass-btn:active {
+    transform: scale(0.98);
+  }
+
+  /* 液态玻璃输入框 — 无 backdrop-filter，纯色半透明模拟 */
+  .liquid-glass-input {
+    background: var(--bg-elevated);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    box-shadow: var(--glass-inner-glow);
+    color: var(--text-primary);
+    outline: none;
+    transition: all 0.2s ease;
+  }
+
+  .liquid-glass-input:focus {
+    border-color: var(--accent);
+    box-shadow: var(--glass-inner-glow), 0 0 0 3px var(--accent-light);
+  }
+
+  .liquid-glass-input::placeholder {
+    color: var(--text-tertiary);
+  }
+
+  /* select 专用：自定义下拉箭头 */
+  select.liquid-glass-input {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236E6E73' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    background-size: 1rem;
+    padding-right: 2rem;
+    cursor: pointer;
+  }
+
+  .dark select.liquid-glass-input {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238E8E93' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  }
+
+  select.liquid-glass-input:focus {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23C199E0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  }
+
+  select.liquid-glass-input option {
+    background: var(--bg-elevated);
+    color: var(--text-primary);
+    padding: 6px 12px;
+    border-radius: 6px;
+  }
+
+  select.liquid-glass-input option:hover,
+  select.liquid-glass-input option:checked {
+    background: var(--accent-light);
+    color: var(--accent);
+  }
+
+  /* 液态玻璃卡片 — 带 hover lift */
+  .liquid-glass-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: var(--glass-shadow), var(--glass-inner-glow);
+    position: relative;
+    will-change: transform;
+    transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .liquid-glass-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--glass-specular);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .liquid-glass-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.10), var(--glass-inner-glow);
+  }
+
+  .dark .liquid-glass-card:hover {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.50), var(--glass-inner-glow);
+  }
+
+  /* 兼容旧 arc-card */
+  .arc-card {
+    @apply liquid-glass-card;
+    border-radius: 16px;
+  }
+}
+
+/* 滚动条 — 极简液态风格 */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 4px;
+}
+
+:hover::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.12);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.22);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+.dark :hover::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.10);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+/* Framer Motion 退出动画时防止布局跳动 */
+[data-framer-motion-exit] {
+  position: absolute;
+  width: 100%;
+}
